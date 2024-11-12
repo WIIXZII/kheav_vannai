@@ -1,1 +1,17 @@
-
+* {
+  padding: 0;
+  margin: 0;
+}
+.first-page {
+  width: 100%;
+  height: 200px;
+  background-color: aquamarine;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+.top-left img {
+  width: 120px;
+  height: auto;
+}
