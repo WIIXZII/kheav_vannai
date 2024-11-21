@@ -442,7 +442,7 @@ section .animate {
 }
 .sec4 .animate {
   opacity: 1;
-  transform: translateY(500%);
+  transform: translateY(200%);
 }
 .sec4.show-animate .animate {
   transform: translateY(0);
