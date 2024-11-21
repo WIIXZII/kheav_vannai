@@ -416,10 +416,10 @@ section .animate {
     height: 100px;
     border-radius: 70px;
   }
-  .skill-body {
+  /* .skill-body {
     display: grid;
     place-items: center;
-  }
+  } */
   .my-skill {
     width: 250px;
     height: 60px;
