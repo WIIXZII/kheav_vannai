@@ -390,36 +390,6 @@ section .animate {
   transition: all 1s;
 }
 
-.sec1 .animate {
-  transform: translateY(-20%);
-}
-.sec1.show-animate .animate {
-  transform: translateY(0);
-}
-
-.sec2 .animate {
-  opacity: 0;
-  transform: translateX(90%);
-}
-.sec2.show-animate .animate {
-  opacity: 1;
-  transform: translateX(0);
-}
-.sec3 .animate {
-  opacity: 0;
-  transform: translateX(-90%);
-}
-.sec3.show-animate .animate {
-  opacity: 1;
-  transform: translateX(0);
-}
-.sec4 .animate {
-  transform: translateY(20%);
-}
-.sec4.show-animate .animate {
-  transform: translateY(0);
-}
-
 @media (max-width: 995px) {
   .home .home-content h3 {
     font-size: 2.5rem;
