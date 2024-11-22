@@ -60,8 +60,8 @@ nav a {
 
 nav a:hover,
 nav a .n {
-  color: #00ffcc;
-  border-bottom: 3px solid #00ffcc;
+  color: #96eefe;
+  border-bottom: 3px solid #96eefe;
 }
 
 section {
@@ -84,7 +84,7 @@ section {
 }
 
 span {
-  color: #00ffcc;
+  color: #96eefe;
 }
 
 .home-content h3 {
@@ -103,19 +103,19 @@ span {
   width: 4rem;
   height: 4rem;
   background-color: transparent;
-  border: 0.2rem solid #00ffcc;
+  border: 0.2rem solid #96eefe;
   font-size: 2rem;
   border-radius: 50%;
   margin: 3rem 1.5rem 3rem 0;
   transition: 0.3s ease;
-  color: #00ffcc;
+  color: #96eefe;
 }
 
 .social-icons a:hover {
   color: black;
   transform: scale(1.3) translateY(-5px);
-  background-color: #00ffcc;
-  box-shadow: 0 0 25px #00ffcc;
+  background-color: #96eefe;
+  box-shadow: 0 0 25px #96eefe;
 }
 
 .btn {
@@ -124,19 +124,19 @@ span {
   background-color: black;
   border-radius: 4rem;
   font-size: 1.6rem;
-  color: #00ffcc;
+  color: #96eefe;
   letter-spacing: 0.3rem;
   font-weight: 600;
-  border: 2px solid #00ffcc;
+  border: 2px solid #96eefe;
   transition: 0.3s ease;
   cursor: pointer;
 }
 
 .btn:hover {
   transform: scale3d(1.03);
-  background-color: #00ffcc;
+  background-color: #96eefe;
   color: black;
-  box-shadow: 0 0 25px #00ffcc;
+  box-shadow: 0 0 25px #96eefe;
 }
 
 .typing-text {
@@ -151,7 +151,7 @@ span {
 
 .typing-text span::before {
   content: "";
-  color: #00ffcc;
+  color: #96eefe;
   animation: words 20s infinite;
 }
 
@@ -180,7 +180,7 @@ span {
 }
 
 hr {
-  border: 1px solid #00ffcc;
+  border: 1px solid #96eefe;
   margin-bottom: 100px;
 }
 .block-img {
@@ -247,7 +247,7 @@ hr {
   height: 60px;
   margin: 20px;
   border-radius: 25px;
-  border: 2px solid #00ffcc;
+  border: 2px solid #96eefe;
   display: flex;
   justify-content: left;
 }
