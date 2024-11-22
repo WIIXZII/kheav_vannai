@@ -405,15 +405,9 @@ section .animate {
     height: 300px;
     border-radius: 70px;
   }
-  /* .skill-body {
-    display: grid;
-    place-items: center;
-  } */
   .my-skill {
     width: 350px;
     height: 60px;
-    margin: 20px;
-    border-radius: 25px;
   }
   .skill-body {
     display: grid;
@@ -438,5 +432,12 @@ section .animate {
   .or {
     padding: 1rem 1rem;
     font-size: 1.5rem;
+  }
+}
+@media (max-width: 500px) {
+  .my-skill {
+    margin-right: 28%;
+    width: 350px;
+    height: 60px;
   }
 }
