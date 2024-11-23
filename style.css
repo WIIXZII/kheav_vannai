@@ -434,9 +434,9 @@ section .animate {
     font-size: 1.5rem;
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 490px) {
   .my-skill {
-    margin-right: 28%;
+    margin-right: 27%;
     width: 350px;
     height: 60px;
   }
