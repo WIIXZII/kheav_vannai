@@ -378,7 +378,7 @@ hr {
 section .animate {
   transition: all 1s;
 }
-/* new code lines*/
+/* new code lines
 
 .sec1 .animate {
   opacity: 0;
@@ -412,7 +412,7 @@ section .animate {
   opacity: 1;
   transform: translateX(0%);
 }
-/* new code lines*/
+new code lines*/
 @media (max-width: 995px) {
   .home .home-content h3 {
     font-size: 2.5rem;
