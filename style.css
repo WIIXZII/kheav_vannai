@@ -378,7 +378,41 @@ hr {
 section .animate {
   transition: all 1s;
 }
+/* new code lines*/
 
+.sec1 .animate {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.sec1.show-animate .animate {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.sec2 .animate {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.sec2.show-animate .animate {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.sec3 .animate {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.sec3.show-animate .animate {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.sec4 .animate {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.sec4.show-animate .animate {
+  opacity: 1;
+  transform: translateX(0%);
+}
+/* new code lines*/
 @media (max-width: 995px) {
   .home .home-content h3 {
     font-size: 2.5rem;
