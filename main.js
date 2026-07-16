@@ -52,7 +52,7 @@ function init() {
     { name: "Uranus", color: 0x00ffff, size: 4, distance: 110, speed: 0.004 },
     { name: "Neptune", color: 0x0000ff, size: 4, distance: 130, speed: 0.003 },
   ];
-
+  
   // Creating Each Planet and their orbits
   planetData.forEach((data) => {
     const geometry = new THREE.SphereGeometry(data.size, 32, 32);
