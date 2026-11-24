@@ -27,6 +27,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#bg-boxes-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
 a,
 a:hover,
 a:focus,
@@ -119,6 +129,8 @@ nav a:active {
 }
 
 section {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   padding: 5rem 9% 5rem;
 }
@@ -128,7 +140,7 @@ section {
   justify-content: center;
   align-items: center;
   gap: 8rem;
-  background-color: black;
+  background-color: transparent;
 }
 
 .home .home-content h1 {
@@ -364,8 +376,12 @@ hr {
   margin: 20px;
   border-radius: 25px;
   border: 2px solid #96eefe;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   justify-content: left;
+  cursor: pointer;
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.28s ease;
   will-change: transform;
@@ -397,31 +413,24 @@ hr {
   width: 100%;
   height: 5px;
   background-color: rgba(255, 255, 255, 0.25);
-  transform: scaleX(0);
-  transform-origin: left;
+  transition: background-color 0.4s ease;
 }
 
 .sec3.show-animate .line {
-  background-color: white;
-  animation: animate 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes animate {
-  100% {
-    transform: scaleX(1);
-  }
+  background-color: rgba(255, 255, 255, 0.85);
 }
 
 .inline {
+  display: block;
   height: 5px;
   position: absolute;
+  top: 0;
+  left: 0;
   border-radius: 5px;
-  transform: scaleX(0);
-  transform-origin: left;
 }
 
-.sec3.show-animate .inline {
-  animation: animate 0.9s 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.js-ready .line .inline {
+  width: 0%;
 }
 
 .html .inline {
@@ -459,66 +468,37 @@ hr {
   background-color: #d500dd;
 }
 
-.sec3.show-animate .inline::after {
+.inline::after {
+  content: attr(data-percent);
   position: absolute;
-  padding: 1px 8px;
+  padding: 2px 8px;
   background-color: #000;
   color: #00ffcc;
+  border: 1px solid rgba(150, 238, 254, 0.35);
   font-size: 12px;
-  border-radius: 3px;
-  top: -28px;
-  right: -20px;
-  animation: showtext 0.45s 0.9s ease forwards;
-  opacity: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+  white-space: nowrap;
+  border-radius: 4px;
+  top: -31px;
+  right: 0;
+  transform: translateX(50%);
+  pointer-events: none;
 }
 
-.html .inline::after {
-  content: "80%";
-}
-
-.css .inline::after {
-  content: "70%";
-}
-
-.js .inline::after {
-  content: "60%";
-}
-
-.react .inline::after {
-  content: "50%";
-}
-
-.node .inline::after {
-  content: "50%";
-}
-
-.cpp .inline::after {
-  content: "75%";
-}
-
-.sql .inline::after {
-  content: "50%";
-}
-
-.sec3.show-animate .inline::before {
+.inline::before {
   content: "";
   position: absolute;
   width: 0;
   height: 0;
-  border: 7px solid transparent;
-  border-bottom-width: 0px;
-  border-right-width: 0px;
-  border-top-color: #000;
-  top: -10px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #000;
+  top: -9px;
   right: 0;
-  animation: showtext 0.45s 0.9s ease forwards;
-  opacity: 0;
-}
-
-@keyframes showtext {
-  100% {
-    opacity: 1;
-  }
+  transform: translateX(50%);
+  pointer-events: none;
 }
 
 .contact-body {
