@@ -22,6 +22,7 @@
         <a href="#home" class="active">Home</a>
         <a href="#about">About</a>
         <a href="#skill">Skills</a>
+        <a href="#project">My Website</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
@@ -30,6 +31,18 @@
         <h1>Hello guys, I'm<span> Wii Xzii</span></h1>
         <h3>Welcome to my <span>Portfolio Website</span></h3>
         <!-- <h3 class="typing-text"><span></span></h3> -->
+        <div class="home-actions">
+          <a href="#project" class="btn scroll-link"
+            ><i class="fa-solid fa-globe"></i> My Website</a
+          >
+          <a
+            href="https://wiixzii.store"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline-accent"
+            >Visit wiixzii.store <i class="fa-solid fa-arrow-up-right-from-square"></i
+          ></a>
+        </div>
       </div>
     </section>
     <section class="about sec2" id="about">
@@ -226,6 +239,135 @@
             <span class="line sql"
               ><span class="inline" data-target="50" data-percent="50%"></span
             ></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="project sec-project" id="project">
+      <div class="project-content content animate">
+        <h1 class="header-style">My<span> Website</span></h1>
+        <hr />
+        <div class="website-showcase">
+          <div class="showcase-info">
+            <div class="showcase-badges">
+              <span class="proud-badge"
+                ><i class="fa-solid fa-star"></i> My Proud Project</span
+              >
+              <a
+                href="https://wiixzii.store"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="live-status"
+              >
+                <span class="live-dot" aria-hidden="true"></span> Live at
+                wiixzii.store
+              </a>
+            </div>
+            <h2 class="showcase-title">
+              VZSaveStore <span>(wiixzii.store)</span>
+            </h2>
+            <p class="showcase-desc">
+              My own live web platform built for convenience stores, minimarts,
+              and small retail teams to scan barcodes, track shelf expiration
+              dates, run physical stock count audits, and export Excel reports
+              in one fast workspace.
+            </p>
+            <div class="showcase-tags">
+              <span class="showcase-tag"
+                ><i class="fa-solid fa-barcode"></i> Barcode Scanning</span
+              >
+              <span class="showcase-tag"
+                ><i class="fa-solid fa-calendar-check"></i> Expiry
+                Tracking</span
+              >
+              <span class="showcase-tag"
+                ><i class="fa-solid fa-boxes-stacked"></i> Stock Counts</span
+              >
+              <span class="showcase-tag"
+                ><i class="fa-solid fa-file-excel"></i> Excel Reports</span
+              >
+            </div>
+            <div class="showcase-actions">
+              <a
+                href="https://wiixzii.store"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn"
+                >Open wiixzii.store
+                <i class="fa-solid fa-arrow-up-right-from-square"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="browser-dots" aria-hidden="true">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <a
+                href="https://wiixzii.store"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="browser-url"
+                title="Open https://wiixzii.store in a new tab"
+              >
+                <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                <span>https://wiixzii.store</span>
+              </a>
+              <div class="browser-controls">
+                <button
+                  type="button"
+                  class="browser-ctrl-btn active"
+                  data-preview-mode="desktop"
+                  aria-label="Desktop preview"
+                  title="Desktop view"
+                >
+                  <i class="fa-solid fa-desktop"></i>
+                </button>
+                <button
+                  type="button"
+                  class="browser-ctrl-btn"
+                  data-preview-mode="mobile"
+                  aria-label="Mobile preview"
+                  title="Mobile view"
+                >
+                  <i class="fa-solid fa-mobile-screen"></i>
+                </button>
+                <button
+                  type="button"
+                  class="browser-ctrl-btn"
+                  id="reload-preview-btn"
+                  aria-label="Reload live preview"
+                  title="Reload preview"
+                >
+                  <i class="fa-solid fa-rotate-right"></i>
+                </button>
+                <a
+                  href="https://wiixzii.store"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="browser-ctrl-btn"
+                  aria-label="Open wiixzii.store in new tab"
+                  title="Open in new tab"
+                >
+                  <i class="fa-solid fa-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+            <div class="browser-viewport" id="website-preview-viewport">
+              <div class="browser-loader" id="website-preview-loader">
+                <span class="loader-spinner" aria-hidden="true"></span>
+                <p>Loading live preview of wiixzii.store...</p>
+              </div>
+              <iframe
+                id="website-preview-frame"
+                src="https://wiixzii.store"
+                title="VZSaveStore — wiixzii.store live website preview"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>

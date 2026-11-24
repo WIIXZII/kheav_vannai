@@ -7,6 +7,9 @@ document.documentElement.classList.add("js-ready");
   const header = document.querySelector("header");
   const sections = Array.from(document.querySelectorAll("section[id]"));
   const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+  const scrollLinks = Array.from(
+    document.querySelectorAll('nav a[href^="#"], a.scroll-link[href^="#"]')
+  );
   let isProgrammaticScroll = false;
 
   const setActiveNav = (id) => {
@@ -138,7 +141,7 @@ document.documentElement.classList.add("js-ready");
     scrollRafId = window.requestAnimationFrame(step);
   };
 
-  navLinks.forEach((link) => {
+  scrollLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
       const href = link.getAttribute("href");
       if (!href || !href.startsWith("#")) return;
@@ -164,6 +167,63 @@ document.documentElement.classList.add("js-ready");
       }
     });
   });
+
+  // Live preview controls for the wiixzii.store website showcase
+  const initWebsitePreview = () => {
+    const viewport = document.getElementById("website-preview-viewport");
+    const frame = document.getElementById("website-preview-frame");
+    const loader = document.getElementById("website-preview-loader");
+    const reloadBtn = document.getElementById("reload-preview-btn");
+    const modeButtons = Array.from(
+      document.querySelectorAll(".browser-ctrl-btn[data-preview-mode]")
+    );
+
+    if (!viewport || !frame) return;
+
+    let loaderTimeout = null;
+    const hideLoader = () => {
+      if (loaderTimeout !== null) {
+        window.clearTimeout(loaderTimeout);
+        loaderTimeout = null;
+      }
+      if (loader) {
+        loader.classList.add("is-hidden");
+      }
+    };
+
+    const showLoader = () => {
+      if (!loader) return;
+      loader.classList.remove("is-hidden");
+      if (loaderTimeout !== null) {
+        window.clearTimeout(loaderTimeout);
+      }
+      loaderTimeout = window.setTimeout(hideLoader, 6000);
+    };
+
+    frame.addEventListener("load", hideLoader);
+    loaderTimeout = window.setTimeout(hideLoader, 6000);
+
+    modeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const mode = button.dataset.previewMode;
+        const isMobile = mode === "mobile";
+        viewport.classList.toggle("is-mobile-view", isMobile);
+        modeButtons.forEach((btn) => {
+          btn.classList.toggle("active", btn === button);
+        });
+      });
+    });
+
+    if (reloadBtn) {
+      reloadBtn.addEventListener("click", () => {
+        showLoader();
+        const currentSrc = frame.getAttribute("src") || "https://wiixzii.store";
+        frame.setAttribute("src", currentSrc);
+      });
+    }
+  };
+
+  initWebsitePreview();
 
   // Animate My Skills bars and percentages smoothly from 0% to each noted target
   let triggerSkillsFromNav = null;
