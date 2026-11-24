@@ -1,158 +1,197 @@
-let sections = document.querySelectorAll("section");
-let spans = document.querySelectorAll("span");
-window.onscroll = () => {
-  sections.forEach((sec) => {
-    let top = window.scrollY;
-    let offset = sec.offsetTop - 100;
-    let height = sec.offsetHeight;
+document.documentElement.classList.add("js-ready");
 
-    if (top >= offset && top < offset + height) {
-      sec.classList.add("show-animate");
-    } else {
-      sec.classList.remove("show-animate");
-    }
-  });
-};
-
-// Variable Declarations for Three.js components
-let scene, camera, renderer;
-let planets = []; // Array to store planets
-let orbitSpeeds = []; // Array to store orbit speeds
-let asteroidBelt = []; // Array to store asteroids
-
-// Initialization Function to set up the scene
-function init() {
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  ); // Set up the camera
-
-  // Set up the WebGL renderer and add it to the document
-  renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
-
-  // Create the Sun
-  const sunGeometry = new THREE.SphereGeometry(10, 32, 32);
-  const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-  const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-  scene.add(sun);
-
-  // Defining Planet Data
-  const planetData = [
-    { name: "Mercury", color: 0xaaaaaa, size: 2, distance: 20, speed: 0.02 },
-    { name: "Venus", color: 0xffcc00, size: 3, distance: 30, speed: 0.015 },
-    { name: "Earth", color: 0x0000ff, size: 3.5, distance: 40, speed: 0.01 },
-    { name: "Mars", color: 0xff0000, size: 3, distance: 50, speed: 0.008 },
-    { name: "Jupiter", color: 0xffa500, size: 5, distance: 70, speed: 0.006 },
-    { name: "Saturn", color: 0xffff00, size: 4.5, distance: 90, speed: 0.005 },
-    { name: "Uranus", color: 0x00ffff, size: 4, distance: 110, speed: 0.004 },
-    { name: "Neptune", color: 0x0000ff, size: 4, distance: 130, speed: 0.003 },
-  ];
-  
-  // Creating Each Planet and their orbits
-  planetData.forEach((data) => {
-    const geometry = new THREE.SphereGeometry(data.size, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: data.color });
-    const planet = new THREE.Mesh(geometry, material);
-    planet.position.x = data.distance;
-    planets.push({ mesh: planet, data: data });
-    orbitSpeeds.push(data.speed);
-    scene.add(planet);
-
-    // Create orbit rings for visual effect
-    const orbitGeometry = new THREE.RingGeometry(
-      data.distance - 0.2,
-      data.distance + 0.2,
-      64
-    );
-    const orbitMaterial = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      side: THREE.DoubleSide,
-    });
-    const orbit = new THREE.Mesh(orbitGeometry, orbitMaterial);
-    orbit.rotation.x = Math.PI / 2;
-    scene.add(orbit);
-  });
-
-  // Create asteroid belt
-  const asteroidGeometry = new THREE.SphereGeometry(0.5, 8, 8);
-  const asteroidMaterial = new THREE.MeshBasicMaterial({ color: 0x888888 });
-
-  for (let i = 0; i < 1000; i++) {
-    const asteroid = new THREE.Mesh(asteroidGeometry, asteroidMaterial);
-    const angle = Math.random() * 2 * Math.PI;
-    const distance = 60 + Math.random() * 20;
-    asteroid.position.x = distance * Math.cos(angle);
-    asteroid.position.z = distance * Math.sin(angle);
-    asteroidBelt.push({ mesh: asteroid, distance: distance, angle: angle });
-    scene.add(asteroid);
-  }
-
-  // Positioning the camera for a better view
-  camera.position.set(0, 160, 200);
-  camera.lookAt(0, 0, 0);
-
-  // Starting animation loop
-  animate();
-}
-
-// Animation Function
-function animate() {
-  requestAnimationFrame(animate);
-
-  // Rotate and orbit planets
-  planets.forEach(({ mesh, data }, index) => {
-    mesh.rotation.y += 0.01; // Rotate planet
-    mesh.position.x =
-      data.distance * Math.cos(Date.now() * 0.001 * orbitSpeeds[index]);
-    mesh.position.z =
-      data.distance * Math.sin(Date.now() * 0.001 * orbitSpeeds[index]);
-  });
-
-  // Move asteroids around the belt
-  asteroidBelt.forEach((asteroid) => {
-    asteroid.angle += 0.001; // Rotation speed
-    asteroid.mesh.position.x = asteroid.distance * Math.cos(asteroid.angle);
-    asteroid.mesh.position.z = asteroid.distance * Math.sin(asteroid.angle);
-  });
-
-  renderer.render(scene, camera);
-}
-
-// Resizing window
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-window.addEventListener("resize", onWindowResize, false);
-
-// Clicking on Planets
-document.body.addEventListener("click", (event) => {
-  const { clientX: x, clientY: y } = event;
-  const mouse = new THREE.Vector2(
-    (x / window.innerWidth) * 2 - 1,
-    -(y / window.innerHeight) * 2 + 1
+(() => {
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
   );
+  const header = document.querySelector("header");
+  const sections = Array.from(document.querySelectorAll("section[id]"));
+  const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+  let isProgrammaticScroll = false;
 
-  const raycaster = new THREE.Raycaster();
-  raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(planets.map((p) => p.mesh));
+  const setActiveNav = (id) => {
+    navLinks.forEach((link) => {
+      const isMatch = link.getAttribute("href") === `#${id}`;
+      link.classList.toggle("active", isMatch);
+    });
+  };
 
-  if (intersects.length > 0) {
-    const planet = planets.find((p) => p.mesh === intersects[0].object);
-    if (planet) {
-      document.getElementById(
-        "info"
-      ).innerText = `This is ${planet.data.name}!`;
+  // Passive frosted-header toggle on scroll
+  let headerTicking = false;
+  const updateHeaderState = () => {
+    if (header) {
+      header.classList.toggle("scrolled", window.scrollY > 24);
     }
-  }
-});
+    if (
+      !isProgrammaticScroll &&
+      sections.length > 0 &&
+      window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4
+    ) {
+      setActiveNav(sections[sections.length - 1].id);
+    }
+    headerTicking = false;
+  };
 
-// Starting the initialization
-init();
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!headerTicking) {
+        headerTicking = true;
+        window.requestAnimationFrame(updateHeaderState);
+      }
+    },
+    { passive: true }
+  );
+  updateHeaderState();
+
+  // Smooth section reveal via IntersectionObserver (zero scroll-jank)
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show-animate");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -60px 0px",
+      }
+    );
+
+    sections.forEach((section) => {
+      if (!section.classList.contains("show-animate")) {
+        revealObserver.observe(section);
+      }
+    });
+
+    // Active nav link sync while scrolling
+    const activeSectionObserver = new IntersectionObserver(
+      (entries) => {
+        if (isProgrammaticScroll) return;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveNav(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-35% 0px -55% 0px",
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((section) => activeSectionObserver.observe(section));
+  } else {
+    sections.forEach((section) => section.classList.add("show-animate"));
+  }
+
+  // Smooth eased scrolling when clicking nav links
+  let scrollRafId = null;
+
+  const cancelSmoothScroll = () => {
+    if (scrollRafId !== null) {
+      window.cancelAnimationFrame(scrollRafId);
+      scrollRafId = null;
+    }
+    isProgrammaticScroll = false;
+    document.documentElement.style.scrollBehavior = "";
+  };
+
+  window.addEventListener("wheel", cancelSmoothScroll, { passive: true });
+  window.addEventListener("touchstart", cancelSmoothScroll, { passive: true });
+
+  const smoothScrollTo = (targetY, duration = 650) => {
+    cancelSmoothScroll();
+
+    if (prefersReducedMotion.matches) {
+      window.scrollTo(0, targetY);
+      return;
+    }
+
+    const startY = window.scrollY;
+    const distance = targetY - startY;
+    if (Math.abs(distance) < 1) return;
+
+    const startTime = performance.now();
+    isProgrammaticScroll = true;
+    document.documentElement.style.scrollBehavior = "auto";
+
+    // Ease-out cubic for silky deceleration
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    const step = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + distance * easeOutCubic(progress));
+
+      if (progress < 1) {
+        scrollRafId = window.requestAnimationFrame(step);
+      } else {
+        cancelSmoothScroll();
+      }
+    };
+
+    scrollRafId = window.requestAnimationFrame(step);
+  };
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+      if (!href || !href.startsWith("#")) return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      event.preventDefault();
+      setActiveNav(target.id);
+
+      const headerHeight = header ? header.offsetHeight : 0;
+      const targetTop = Math.max(
+        0,
+        target.getBoundingClientRect().top + window.scrollY - headerHeight + 8
+      );
+
+      smoothScrollTo(targetTop);
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, "", href);
+      }
+    });
+  });
+
+  // Tactile ripple feedback when clicking buttons and social icon buttons
+  const spawnRipple = (element, event) => {
+    if (prefersReducedMotion.matches) return;
+
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const ripple = document.createElement("span");
+    ripple.className = "btn-ripple";
+    ripple.style.width = `${size}px`;
+    ripple.style.height = `${size}px`;
+
+    const clientX =
+      typeof event.clientX === "number" && event.clientX !== 0
+        ? event.clientX
+        : rect.left + rect.width / 2;
+    const clientY =
+      typeof event.clientY === "number" && event.clientY !== 0
+        ? event.clientY
+        : rect.top + rect.height / 2;
+
+    ripple.style.left = `${clientX - rect.left - size / 2}px`;
+    ripple.style.top = `${clientY - rect.top - size / 2}px`;
+
+    element.appendChild(ripple);
+    ripple.addEventListener("animationend", () => ripple.remove(), {
+      once: true,
+    });
+  };
+
+  document.querySelectorAll(".btn, .social-icons a").forEach((button) => {
+    button.addEventListener("click", (event) => spawnRipple(button, event));
+  });
+})();
